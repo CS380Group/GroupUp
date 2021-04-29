@@ -9,24 +9,6 @@
   </head>
   <body>
     
-    <!--Sign In-->
-    <button class="open-button" onclick="openForm()">Sign In</button><br><br><br>
-    <div class="form-popup" id="myForm">
-      <form action="/action_page.php" class="form-container">
-        <h1>Login</h1>
-
-        <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" required>
-
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-
-        <button type="submit" class="btn">Login</button>
-        <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
-      </form>
-    </div>
-    
-    
     <!--Nav Bar-->
      <nav class="navbar">
       <ul>
@@ -34,8 +16,26 @@
         <li><a href="sports.html">Sports</a></li>
         <li><a href="community.html">Community</a></li>
         <li><a href="gaming.html">Gaming</a></li>
-        <li><a href="create.html">Create</a></li>
-        <li><a href="sign-in.html">Sign In</a></li>
+        <li><a href="create-event.html">Create an Event</a></li>
+        <li><a href="create-account.html">Create An Account</a></li>
+        <li>
+          <!--Sign In-->
+          <button class="open-button" onclick="openForm()">Sign In</button><br><br><br>
+          <div class="form-popup" id="myForm">
+            <form action="/action_page.php" class="form-container">
+              <h1>Login</h1>
+
+              <label for="email"><b>Email</b></label>
+              <input type="text" placeholder="Enter Email" name="email" required>
+
+              <label for="psw"><b>Password</b></label>
+              <input type="password" placeholder="Enter Password" name="psw" required>
+
+              <button type="submit" class="btn">Login</button>
+              <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
+            </form>
+          </div>          
+        </li>
       </ul>
     </nav>
     

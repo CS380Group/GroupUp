@@ -1,16 +1,22 @@
 /* Style info for navigation bar. */
 .navbar ul {
-    list-style-type: none;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    /* list-style-type: none; */
     margin: 0;
     padding: 0;
-    overflow: hidden;
     border: 1px solid #e7e7e7;
     background-color: #f3f3f3;
+    height: 7%;
   }
   
   .navbar li {
-    float: left;
-    margin-left: 12%;
+    display: block;
+    flex: 0 1 auto;
+    list-style-type: none;
+    padding: .5%;
+    height: auto;
   }
   
   .navbar li a {
@@ -19,6 +25,7 @@
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+
   }
   
   .navbar li a:hover:not(.active) {
@@ -42,10 +49,6 @@
         padding: 0;
       }
 
-
-
-
-
 /*Pop up form*/
 {box-sizing: border-box;}
 
@@ -57,7 +60,7 @@
   border: none;
   cursor: pointer;
   opacity: 0.8;
-  position: fixed;
+  /* position: fixed; */
   /*bottom: 23px;*/
   right: 28px;
   /*width: 280px;*/
