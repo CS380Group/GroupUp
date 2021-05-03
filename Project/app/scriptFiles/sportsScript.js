@@ -1,0 +1,1 @@
+var community = 'test';
