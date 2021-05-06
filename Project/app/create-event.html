@@ -51,7 +51,7 @@
     </nav>
 
     <!--Places Marker on page-->
-    <form action="/action_page.php">
+    <form action="./backend/addEventToDatabase.php" method="POST">
       <label for="userName">Name</label><br />
       <input
         type="text"
@@ -79,7 +79,7 @@
       <textarea
         type="text"
         id="userDescription"
-        name="UserDescription"
+        name="userDescription"
         row="20"
         cols="50"
         resize="none"
@@ -91,7 +91,7 @@ Looking for people to play basketball with.</textarea
       <input
         type="text"
         id="userPhone"
-        name="UserPhone"
+        name="userPhone"
         value="(555) 555-5555"
       /><br /><br />
 
@@ -99,7 +99,7 @@ Looking for people to play basketball with.</textarea
       <input
         type="text"
         id="userAdress"
-        name="UserAdress"
+        name="userAdress"
         value="400 e University way"
       /><br /><br />
 
@@ -165,10 +165,7 @@ Looking for people to play basketball with.</textarea
         <option value="WI">Wisconsin</option>
         <option value="WY">Wyoming</option> </select
       ><br /><br />
-
-      <form action="">
-        <input type="button" id="myButton" value="Submit" />
-      </form>
+        <input type="submit" name="submit" id="myButton" value="Submit" />
     </form>
 
     <script src="scriptFiles/signIn.js"></script>
