@@ -52,7 +52,13 @@
 
     <!--Places Marker on page-->
     <form action="./backend/addEventToDatabase.php" method="POST">
-      <label for="userName">Name</label><br />
+      
+      <!--Box Info-->
+      <p style="border:2px; background-color: lightgray; border-style:solid; 
+                border-color:white; padding: 1em; width: 390px;">
+      <!--End of box info-->
+      
+        <label for="userName">Name</label><br />
       <input
         type="text"
         id="userName"
@@ -165,7 +171,9 @@ Looking for people to play basketball with.</textarea
         <option value="WI">Wisconsin</option>
         <option value="WY">Wyoming</option> </select
       ><br /><br />
-        <input type="submit" name="submit" id="myButton" value="Submit" />
+
+      <input type="submit" name="submit" id="myButton" value="Submit" />
+      </p>
     </form>
 
     <script src="scriptFiles/signIn.js"></script>
