@@ -56,58 +56,44 @@
         document.getElementById("myForm").style.display = "none";
       }
       
-      // Function that will handle the database request for retrieving events
-      function makeRequest(url, callback) {
-        var request;
-        //TODO: Look into compatibility issues
-        request = new XMLHttpRequest();
-        request.onreadystatechange = function() {
-          if (request.readyState == 4 && request.status == 200) {
-            callback(request);
-          }
-        }
-        var userType = 'sports';
-        request.open("GET", url+"?"+"category="+userType, true);
-        request.send();
-      }
       
-      // Debug events
+      
+      
       //Values
-      // var geocoder;
-      // var map;
-      // var userName = ["Lucy",
-      //            "Derrick",
-      //            "Josh",
-      //            "Steven",
-      //            "Amanda",
-      //            "Patrick",
-      //            "Will"];
+      var geocoder;
+      var map;
+      var userName = ["Lucy",
+                 "Derrick",
+                 "Josh",
+                 "Steven",
+                 "Amanda",
+                 "Patrick",
+                 "Will"];
       
-      // var description = ["Soccer Game",
-      //            "Looking for D&D Group",
-      //            "Community Service",
-      //            "Park Event",
-      //            "Job Opportunity",
-      //            "New Business Open",
-      //            "Ultimate Frisbee"];
+      var description = ["Soccer Game",
+                 "Looking for D&D Group",
+                 "Community Service",
+                 "Park Event",
+                 "Job Opportunity",
+                 "New Business Open",
+                 "Ultimate Frisbee"];
       
-      // var address = ["801 e 18th ave",
-      //                "1081 umptanum rd",
-      //                "1300 e 3rd ave",
-      //                "400 w washington ave",
-      //                "805 n main st",
-      //                "608 e mountain view ave",
-      //                "1518 w university way"];
+      var address = ["801 e 18th ave",
+                     "1081 umptanum rd",
+                     "1300 e 3rd ave",
+                     "400 w washington ave",
+                     "805 n main st",
+                     "608 e mountain view ave",
+                     "1518 w university way"];
       
-      // var city = "Ellensburg" ;
-      // var state = "WA";
+      var city = "Ellensburg" ;
+      var state = "WA";
       
       
       //Main Body 
       function initMap() {
         geocoder =  new google.maps.Geocoder();
-        // TODO: Make default address center of returned events
-        geocoder.geocode( { 'address': "Ellensburg"}, function(results, status) {
+        geocoder.geocode( { 'address': city}, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             //alert(results[0].geometry.location)
             var latlng = results[0].geometry.location;
@@ -117,33 +103,16 @@
               gestureHandling: 'greedy'
             };
             map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-            // Get locations from db and add them to the map
-            makeRequest('./backend/getEventsByCategory.php', function(data) {
-              // Debug Message
-              // console.log(data.responseText);
-              var data = JSON.parse(data.responseText);
-              for (var i = 0; i < data.length; i++) {
-                var address = data[i].userAddress;
-                var userCity = data[i].userCity;
-                var userState = data[i].userState;
-                var userName = data[i].userName;
-                var userDescription = data[i].userDescription;
-                //Debug message
-                // console.log(address, userCity, userState, userName, userDescription);
-                codeAddress(geocoder, map, address, userState, userCity, userName, userDescription);
-              }
-            });
             
-            // Code for placing debug events
-            // //Loop for placing Markers
-            // for(var i=0; i<address.length; i++){
+            
+            //Loop for placing Markers
+            for(var i=0; i<address.length; i++){
               
-            //   var spot = address[i];
-            //   var nam = userName[i];
-            //   var descrip = description[i];
-            //   codeAddress(geocoder, map, spot, nam, descrip);
-            // }  
+              var spot = address[i];
+              var nam = userName[i];
+              var descrip = description[i];
+              codeAddress(geocoder, map, spot, nam, descrip);
+            }  
           }else{
             //alert('Geocode was not successful for the following reason: ' + status);
           }
@@ -151,15 +120,15 @@
       }
            
       //Places Markers
-      function codeAddress(geocoder, map, address, city, state, nam, descrip) {
+      function codeAddress(geocoder, map, spot, nam, descrip) {
         //document.getElementById("test").innerHTML = nam;
-        geocoder.geocode({'address': address + ", " + city + " " + state}, function(results, status) {
+        geocoder.geocode({'address': spot + ", " + city + " " + state}, function(results, status) {
           if (status === 'OK') {
             var infowindow = new google.maps.InfoWindow();
             var marker = new google.maps.Marker({
               map: map,
               position: results[0].geometry.location,
-              title: address
+              title: spot
             });
             google.maps.event.addListener(marker, 'click', (function(marker) {
                 var contentString = '<div id="infoWindow">'
@@ -167,7 +136,7 @@
                     +'<p>'
                     + "Name: " + nam + "<br>"
                     + "Event Title: " + descrip + "<br>"
-                    + "Address: " + address + "<br>"
+                    + "Address: " + spot + "<br>"
                     + "City: " + city + "<br>"
                     + "State: " + state + "<br>"
                     +'</p>'

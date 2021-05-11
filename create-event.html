@@ -51,8 +51,14 @@
     </nav>
 
     <!--Places Marker on page-->
-    <form action="./backend/addEventToDatabase.php" method="POST">
-      <label for="userName">Name</label><br />
+    <form action="/action_page.php">
+      
+      <!--Box Info-->
+      <p style="border:2px; background-color: lightgray; border-style:solid; 
+                border-color:white; padding: 1em; width: 390px;">
+      <!--End of box info-->
+      
+        <label for="userName">Name</label><br />
       <input
         type="text"
         id="userName"
@@ -79,7 +85,7 @@
       <textarea
         type="text"
         id="userDescription"
-        name="userDescription"
+        name="UserDescription"
         row="20"
         cols="50"
         resize="none"
@@ -91,15 +97,15 @@ Looking for people to play basketball with.</textarea
       <input
         type="text"
         id="userPhone"
-        name="userPhone"
+        name="UserPhone"
         value="(555) 555-5555"
       /><br /><br />
 
       <label for="userAddress">Address</label><br />
       <input
         type="text"
-        id="userAddress"
-        name="userAddress"
+        id="userAdress"
+        name="UserAdress"
         value="400 e University way"
       /><br /><br />
 
@@ -165,7 +171,11 @@ Looking for people to play basketball with.</textarea
         <option value="WI">Wisconsin</option>
         <option value="WY">Wyoming</option> </select
       ><br /><br />
-        <input type="submit" name="submit" id="myButton" value="Submit" />
+
+      <form action="">
+        <input type="button" id="myButton" value="Submit" />
+      </form>
+      </p>
     </form>
 
     <script src="scriptFiles/signIn.js"></script>
