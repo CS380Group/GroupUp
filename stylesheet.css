@@ -6,6 +6,7 @@
     /* list-style-type: none; */
     margin: 0;
     padding: 0;
+    text-align: center;
     border: 1px solid #e7e7e7;
     background-color: #f3f3f3;
     height: 7%;
@@ -20,7 +21,7 @@
   }
   
   .navbar li a {
-    display: block;
+    display: inline;
     color: #666;
     text-align: center;
     padding: 14px 16px;
@@ -60,7 +61,7 @@
   border: none;
   cursor: pointer;
   opacity: 0.8;
-  /* position: fixed; */
+  /*position: fixed;*/ 
   /*bottom: 23px;*/
   right: 28px;
   /*width: 280px;*/
@@ -118,5 +119,10 @@
 /*Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
+}
+
+/*Background color*/
+body {
+  background-color: rgba(50, 115, 50, 0.3);
 }
         
