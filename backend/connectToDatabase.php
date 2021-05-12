@@ -1,6 +1,6 @@
 <?php
     // Database connection information. Will be different once database is on server
-    $dbhost = 'localhost:3306';
+    $dbhost = 'localhost:3307';
     $dbuser = 'root';
     $dbpass = '123';
     $db = 'GroupUp';
