@@ -169,7 +169,7 @@
       }
 
       //Places Markers
-      function codeAddress(geocoder, map, address, city, state, nam, descrip) {
+      function codeAddress(geocoder, map, address, state, city, nam, descrip) {
         geocoder.geocode(
           { address: address + ", " + city + " " + state },
           function(results, status) {

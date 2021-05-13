@@ -142,7 +142,7 @@
                 var userDescription = data[i].userDescription;
                 //Debug message
                 // console.log(address, userCity, userState, userName, userDescription);
-                codeAddress(geocoder, map, address, userState, userCity, userName, userDescription);
+                setTimeout(codeAddress(geocoder, map, address, userState, userCity, userName, userDescription), 100);
               }
             });
 
@@ -161,7 +161,7 @@
       }
 
       //Places Markers
-      function codeAddress(geocoder, map, address, city, state, nam, descrip) {
+      function codeAddress(geocoder, map, address, state, city, nam, descrip) {
         geocoder.geocode(
           { address: address + ", " + city + " " + state },
           function(results, status) {
