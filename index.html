@@ -142,7 +142,7 @@
                 var userDescription = data[i].userDescription;
                 //Debug message
                 // console.log(address, userCity, userState, userName, userDescription);
-                setTimeout(codeAddress, 100, geocoder, map, address, userState, userCity, userName, userDescription);
+                codeAddress(geocoder, map, address, userState, userCity, userName, userDescription);
               }
             });
 
@@ -211,8 +211,11 @@
                   };
                 })(marker)
               );
+            } else if (status === "OVER_QUERY_LIMIT") {
+              codeAddress(geocoder, map, address, state, city, nam, descrip);
             } else {
-              //alert('Geocode was not successful for the following reason: ' + status);
+              // Debug for geocoder.
+              alert('Geocode was not successful for the following reason: ' + status);
             }
           }
         );
