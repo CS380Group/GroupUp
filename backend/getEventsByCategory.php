@@ -18,7 +18,7 @@
 
     // Execute query
     // TODO: Add Error Handling especially for even that query returns null
-    $query = "SELECT * FROM event WHERE userType='$category'";
+    $query = "SELECT * FROM event WHERE eventType='$category'";
     $result = mysqli_query($conn, $query);
     $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
 

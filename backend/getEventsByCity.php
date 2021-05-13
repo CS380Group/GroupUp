@@ -18,7 +18,7 @@
 
     // Execute query
     // TODO: Add Error Handling especially for even that query returns null
-    $query = "SELECT * FROM event WHERE userCity='$city'";
+    $query = "SELECT * FROM event WHERE eventCity='$city'";
     $result = mysqli_query($conn, $query);
     $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
 

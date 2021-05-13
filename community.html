@@ -67,21 +67,6 @@
         document.getElementById("myForm").style.display = "none";
       }
 
-      // Function that will handle the database request for retrieving events
-      function makeRequest(url, callback) {
-        var request;
-        //TODO: Look into compatibility issues
-        request = new XMLHttpRequest();
-        request.onreadystatechange = function() {
-          if (request.readyState == 4 && request.status == 200) {
-            callback(request);
-          }
-        }
-        var userType = 'community';
-        request.open("GET", url+"?"+"category="+userType, true);
-        request.send();
-      }
-
       // Debug Events
       // //Values
       // var geocoder;
@@ -138,19 +123,24 @@
             );
 
             // Get locations from db and add them to the map
-            makeRequest('./backend/getEventsByCategory.php', function(data) {
+            makeCategoryRequest('community', './backend/getEventsByCategory.php', function(data) {
               // Debug Message
               // console.log(data.responseText);
               var data = JSON.parse(data.responseText);
               for (var i = 0; i < data.length; i++) {
-                var address = data[i].userAddress;
-                var userCity = data[i].userCity;
-                var userState = data[i].userState;
+                var streetAddress = data[i].eventStreet;
+                var city = data[i].eventCity;
+                var state = data[i].eventState;
+                var country = data[i].eventCountry;
+                var latitude = data[i].latitude;
+                var longitude = data[i].longitude;
                 var userName = data[i].userName;
-                var userDescription = data[i].userDescription;
+                var eventTitle = data[i].eventTitle;
+                var eventDescription = data[i].eventDescription;
                 //Debug message
                 // console.log(address, userCity, userState, userName, userDescription);
-                codeAddress(geocoder, map, address, userState, userCity, userName, userDescription);
+                // codeAddress(geocoder, map, address, userState, userCity, userName, userDescription);
+                placeMarker(map, streetAddress, city, state, country, latitude, longitude, eventTitle, eventDescription);
               }
             });
 
@@ -168,66 +158,67 @@
         });
       }
 
-      //Places Markers
-      function codeAddress(geocoder, map, address, city, state, nam, descrip) {
-        geocoder.geocode(
-          { address: address + ", " + city + " " + state },
-          function(results, status) {
-            if (status === "OK") {
-              var infowindow = new google.maps.InfoWindow();
-              var marker = new google.maps.Marker({
-                map: map,
-                position: results[0].geometry.location,
-                title: address
-              });
-              google.maps.event.addListener(
-                marker,
-                "click",
-                (function(marker) {
-                  var contentString =
-                    '<div id="infoWindow">' +
-                    '<div id="bodyContent">' +
-                    "<p>" +
-                    "Name: " +
-                    nam +
-                    "<br>" +
-                    "Event Title: " +
-                    descrip +
-                    "<br>" +
-                    "Address: " +
-                    address +
-                    "<br>" +
-                    "City: " +
-                    city +
-                    "<br>" +
-                    "State: " +
-                    state +
-                    "<br>" +
-                    "</p>" +
-                    "</div>" +
-                    "</div>";
-                  return function() {
-                    infowindow.setContent(contentString);
-                    infowindow.open(map, marker);
-                    google.maps.event.addListener(infowindow, "click", function(
-                      i
-                    ) {
-                      alert(
-                        "You clicked on the infowindow for" + cityList[i][0]
-                      );
-                    });
-                  };
-                })(marker)
-              );
-            } else {
-              //alert('Geocode was not successful for the following reason: ' + status);
-            }
-          }
-        );
-      }
+      // //Places Markers
+      // function codeAddress(geocoder, map, address, state, city, nam, descrip) {
+      //   geocoder.geocode(
+      //     { address: address + ", " + city + " " + state },
+      //     function(results, status) {
+      //       if (status === "OK") {
+      //         var infowindow = new google.maps.InfoWindow();
+      //         var marker = new google.maps.Marker({
+      //           map: map,
+      //           position: results[0].geometry.location,
+      //           title: address
+      //         });
+      //         google.maps.event.addListener(
+      //           marker,
+      //           "click",
+      //           (function(marker) {
+      //             var contentString =
+      //               '<div id="infoWindow">' +
+      //               '<div id="bodyContent">' +
+      //               "<p>" +
+      //               "Name: " +
+      //               nam +
+      //               "<br>" +
+      //               "Event Title: " +
+      //               descrip +
+      //               "<br>" +
+      //               "Address: " +
+      //               address +
+      //               "<br>" +
+      //               "City: " +
+      //               city +
+      //               "<br>" +
+      //               "State: " +
+      //               state +
+      //               "<br>" +
+      //               "</p>" +
+      //               "</div>" +
+      //               "</div>";
+      //             return function() {
+      //               infowindow.setContent(contentString);
+      //               infowindow.open(map, marker);
+      //               google.maps.event.addListener(infowindow, "click", function(
+      //                 i
+      //               ) {
+      //                 alert(
+      //                   "You clicked on the infowindow for" + cityList[i][0]
+      //                 );
+      //               });
+      //             };
+      //           })(marker)
+      //         );
+      //       } else {
+      //         //alert('Geocode was not successful for the following reason: ' + status);
+      //       }
+      //     }
+      //   );
+      // }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQP4SoFyVEn1BfUd54sFeVTqodT83NNfo&callback=initMap"></script>
     <script src="scriptFiles/signIn.js"></script>
     <script src="scriptFiles/communityScript.js"></script>
+    <script src="scriptFiles/markerUtils.js"></script>
   </body>
 </html>
