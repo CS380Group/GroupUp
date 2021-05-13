@@ -95,6 +95,12 @@
 
       // var city = "Ellensburg";
       // var state = "WA";
+      
+      // Utitlity function to support synchronus sleeping.
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
 
       // Function that will handle the database request for retrieving events
       function makeRequest(url, callback) {
@@ -212,7 +218,8 @@
                 })(marker)
               );
             } else if (status === "OVER_QUERY_LIMIT") {
-              codeAddress(geocoder, map, address, state, city, nam, descrip);
+              // Handle OVER_QUERY_LIMIT by waiting 100ms, then trying again.
+              sleep(100).then( () => { codeAddress(geocoder, map, address, state, city, nam, descrip); });
             } else {
               // Debug for geocoder.
               // alert('Geocode was not successful for the following reason: ' + status);
