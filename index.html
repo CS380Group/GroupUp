@@ -212,10 +212,10 @@
                 })(marker)
               );
             } else if (status === "OVER_QUERY_LIMIT") {
-              setTimeout( () => { codeAddress(geocoder, map, address, state, city, nam, descrip); }, 100);
+              codeAddress(geocoder, map, address, state, city, nam, descrip);
             } else {
               // Debug for geocoder.
-              alert('Geocode was not successful for the following reason: ' + status);
+              // alert('Geocode was not successful for the following reason: ' + status);
             }
           }
         );
