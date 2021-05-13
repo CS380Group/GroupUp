@@ -31,7 +31,9 @@
         if (!$geoCode) {
             die("geocode failed");    
         }
-        print_r($geoCode);
+        
+        //Debug message
+        // print_r($geoCode);
 
         // Extract location data from geocode
         $latitude = $geoCode[0];
