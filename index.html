@@ -142,7 +142,7 @@
                 var userDescription = data[i].userDescription;
                 //Debug message
                 // console.log(address, userCity, userState, userName, userDescription);
-                setTimeout(codeAddress(geocoder, map, address, userState, userCity, userName, userDescription), 100);
+                setTimeout(codeAddress(), 100, geocoder, map, address, userState, userCity, userName, userDescription);
               }
             });
 
