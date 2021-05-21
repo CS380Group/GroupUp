@@ -4,14 +4,21 @@
 
     // TODO: Make this experience better visually.
   
-    // Connect to database
+    // Include database connect function
     include 'connectToDatabase.php';
 
-    // Include geocode funtion
+    // Include geocode function
     include 'geocodePosition.php';
+
+    // Include redirect function
+    include 'redirectToLastPage.php';
 
     // Checks if the submit button has been pressed
     if(isset($_POST['submit'])) {
+
+        // Connect to database
+        // TODO : exception checking
+        $conn = connectToDatabase();
 
         //We need userName, userTitle, userType, userDescription, userPhone, userAddress, userCity, userState
 
@@ -48,6 +55,8 @@
         $country = $location[3];
         $country = preg_replace('/[^A-Za-z]/', '', $country); 
 
+        // TODO: Get userId based on email
+
         // Stores the sql query to be executed
         $query = "INSERT INTO event (userName, eventTitle, eventType, eventDescription, userPhone, eventStreet, eventCity, eventState, eventZip, eventCountry, latitude, longitude) 
             VALUES ('$userName', '$eventTitle', '$eventType', '$eventDescription', '$userPhone', '$street', '$city', '$state', '$zip', '$country', '$latitude', '$longitude')";
@@ -58,21 +67,11 @@
         } else {
             echo "Event submitted successfully!";
         }
+        
+        // Close the connection to the database
+        mysqli_close($conn);
     }
 
-    // Close the connection to the database
-    mysqli_close($conn);
-
-    // This will provide the user with a link that will take them to the previous page. Can be changed later.
-    $referer = filter_var($_SERVER['HTTP_REFERER'], FILTER_VALIDATE_URL);
-
-    // Handles whether the redirect will be php or javascript
-    if (!empty($referer)) {
-        echo '<p><a href="'. $referer .'" title="Return to the previous page">&laquo; Go back</a></p>';
-    } else {
-        echo '<p><a href="javascript:history.go(-1)" title="Return to the previous page">&laquo; Go back</a></p>';
-    }
-
-    die();
+    displayRedirect();
 
 ?>
