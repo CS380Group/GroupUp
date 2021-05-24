@@ -9,8 +9,8 @@ CREATE TABLE IF NOT EXISTS user (
     cityAddress VARCHAR(255),
     stateAddress CHAR(2),
     phoneNumber VARCHAR(15),
-    password VARCHAR(255),
-    dateOfCreation DATE
+    password CHAR(41),
+    joinDate DATETIME
 );
 CREATE TABLE IF NOT EXISTS event (
     event_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -26,6 +26,8 @@ CREATE TABLE IF NOT EXISTS event (
     eventCountry VARCHAR(255), 
     latitude DECIMAL(11,7), 
     longitude DECIMAL(11,7),
+    startDate DATETIME,
+    endDate DATETIME,
     FOREIGN KEY (userId) REFERENCES user(userId)
 );
 CREATE TABLE IF NOT EXISTS directMessage (
