@@ -26,7 +26,7 @@
 
         // Prepare the database query to log the user in
         // TODO: Need to do some password hashing magic
-        $stmt = $conn->prepare("SELECT * FROM user WHERE emailAddress=? AND password=?");
+        $stmt = $conn->prepare("SELECT * FROM user WHERE emailAddress=? AND password=PASSWORD(?)");
         // Check for errors
         if ($stmt == false) {
             displayRedirect();
@@ -62,13 +62,12 @@
         }
 
         // Establish session variables
-        $_SESSION['key'] = session_start();
         $_SESSION['valid'] = true;
         $_SESSION['timeout'] = time();
         $_SESSION['username'] = $email;
 
         // Debug
-        print_r($_SESSION);
+        echo "User " . $_SESSION['username'] . " is now logged in!";
 
         displayRedirect();
    }
