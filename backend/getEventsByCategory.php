@@ -8,15 +8,11 @@
     // Connect to database
     include 'connectToDatabase.php';
 
+    // Connect to the database
     $conn = connectToDatabase();
     
-    // Debug message
-    // echo "Connected successfully.";
-
     // Get category for query
     $category = $_GET['category'];
-    // Debug message
-    // echo $category;
 
     // Prepare query for finding events by category
     $stmt = $conn->prepare("SELECT * FROM event WHERE eventType=?");
