@@ -15,7 +15,7 @@
         $conn = connectToDatabase();
 
         // Get current date
-        $dateOfCreation = date('Y-m-d');
+        $joinDate = date('Y-m-d H:i:s');
 
         // Prepare user variables
         $emailAddress = $_POST['userEmail'];
@@ -36,13 +36,15 @@
             die("Something went wrong when preparing the email check statement. Please try again.");
         }
 
-        $stmt->bind_param('s', $emailAddress); // 's' specifies the variable type => 'string'
+        // Bind parameters for query
+        $stmt->bind_param('s', $emailAddress);
         // Check for errors
         if ($stmt == false) {
             displayRedirect();
             die("Something went wrong when binding the email check statement. Please try again.");
         }
 
+        // Execute the query
         $stmt->execute();
         // Check for errors
         if ($stmt == false) {
@@ -50,6 +52,7 @@
             die("Something went wrong when executing the email check statement. Please try again.");
         }
 
+        // Get results from the query
         $result = $stmt->get_result();
         // Check for errors
         if ($stmt == false) {
@@ -57,6 +60,7 @@
             die("Something went wrong when getting the check email sstatement's result. Please try again.");
         }
 
+        // Close the connection
         $stmt->close();
 
         // Check if the entered email address exists in the database using the prepared query
@@ -78,8 +82,8 @@
             streetAddress, 
             cityAddress, 
             stateAddress, 
-            dateOfCreation
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            joinDate
+        ) VALUES (?, PASSWORD(?), ?, ?, ?, ?, ?, ?, ?)");
 
         // Check for errors
         if ($stmt == false) {
@@ -89,7 +93,7 @@
         }
 
         $stmt->bind_param('sssssssss', $emailAddress, $password, $firstName, $lastName, $phoneNumber, 
-                        $streetAddress, $cityAddress, $stateAddress, $dateOfCreation);
+                        $streetAddress, $cityAddress, $stateAddress, $joinDate);
 
         // Check for errors
         if ($stmt == false) {
