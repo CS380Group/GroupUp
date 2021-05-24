@@ -8,11 +8,9 @@
     // Connect to database
     include 'connectToDatabase.php';
 
+    // Connect to the database
     $conn = connectToDatabase();
     
-    // Debug message
-    // echo "Connected successfully.";
-
     // Get city for query
     $city = $_GET['city'];
 
