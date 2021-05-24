@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS event (
     eventTitle VARCHAR(50), 
     eventType VARCHAR(30), 
     eventDescription VARCHAR(200), 
-    userPhone VARCHAR(15), 
+    eventPhone VARCHAR(15), 
     eventStreet VARCHAR(255), 
     eventCity VARCHAR(255), 
     eventState CHAR(2), 
