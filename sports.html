@@ -1,0 +1,212 @@
+<!-- Start user session -->
+<?php session_start(); ?>
+<!--DOCTYPE html-->
+<html>
+  <head>
+    <title>Sports Page</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="stylesheet.css" type="text/css" />
+
+  </head>
+  <body>
+    
+    <!--Nav Bar-->
+     <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="sports.html">Sports</a></li>
+        <li><a href="community.html">Community</a></li>
+        <li><a href="gaming.html">Gaming</a></li>
+        <li><a href="create-event.html">Create an Event</a></li>
+        <li><a href="create-account.html">Create An Account</a></li>
+        <li><a href="inbox.html">Inbox</a></li>
+        <li>
+          <!--Sign In-->
+          <button class="open-button" onclick="openForm()">Sign In</button
+          ><br /><br /><br />
+          <div class="form-popup" id="myForm">
+            <form action="/backend/loginUser.php" class="form-container" method="POST">
+              <h1>Login</h1>
+
+              <label for="email"><b>Email</b></label>
+              <input
+                type="text"
+                placeholder="Enter Email"
+                name="email"
+                required
+              />
+
+              <label for="password"><b>Password</b></label>
+              <input
+                type="password"
+                placeholder="Enter Password"
+                name="password"
+                required
+              />
+
+              <button type="submit" name="submit" class="btn">Login</button>
+              <button type="submit" class="btn cancel" onclick="closeForm()">
+                Close
+              </button>
+            </form>
+          </div>
+        </li>
+      </ul>
+    </nav>
+    
+    <h>Sports Page</h>
+    
+    <!---->
+    
+    <!--Map-->
+    <div id="map"></div>
+     
+    <script>
+      //popup form
+      function openForm() {
+        document.getElementById("myForm").style.display = "block";
+      }
+
+      function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+      }
+      
+      // Function that will handle the database request for retrieving events
+      function makeRequest(url, callback) {
+        var request;
+        //TODO: Look into compatibility issues
+        request = new XMLHttpRequest();
+        request.onreadystatechange = function() {
+          if (request.readyState == 4 && request.status == 200) {
+            callback(request);
+          }
+        }
+        var userType = 'sports';
+        request.open("GET", url+"?"+"category="+userType, true);
+        request.send();
+      }
+      
+      // Debug events
+      //Values
+      // var geocoder;
+      // var map;
+      // var userName = ["Lucy",
+      //            "Derrick",
+      //            "Josh",
+      //            "Steven",
+      //            "Amanda",
+      //            "Patrick",
+      //            "Will"];
+      
+      // var description = ["Soccer Game",
+      //            "Looking for D&D Group",
+      //            "Community Service",
+      //            "Park Event",
+      //            "Job Opportunity",
+      //            "New Business Open",
+      //            "Ultimate Frisbee"];
+      
+      // var address = ["801 e 18th ave",
+      //                "1081 umptanum rd",
+      //                "1300 e 3rd ave",
+      //                "400 w washington ave",
+      //                "805 n main st",
+      //                "608 e mountain view ave",
+      //                "1518 w university way"];
+      
+      // var city = "Ellensburg" ;
+      // var state = "WA";
+      
+      
+      //Main Body 
+      function initMap() {
+        geocoder =  new google.maps.Geocoder();
+        // TODO: Make default address center of returned events
+        geocoder.geocode( { 'address': "Ellensburg"}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            //alert(results[0].geometry.location)
+            var latlng = results[0].geometry.location;
+            var mapOptions = {
+              zoom: 13,
+              center: latlng,
+              gestureHandling: 'greedy'
+            };
+            map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+            // Get locations from db and add them to the map
+            makeRequest('./backend/getEventsByCategory.php', function(data) {
+              // Debug Message
+              // console.log(data.responseText);
+              var data = JSON.parse(data.responseText);
+              for (var i = 0; i < data.length; i++) {
+                var address = data[i].userAddress;
+                var userCity = data[i].userCity;
+                var userState = data[i].userState;
+                var userName = data[i].userName;
+                var userDescription = data[i].userDescription;
+                //Debug message
+                // console.log(address, userCity, userState, userName, userDescription);
+                codeAddress(geocoder, map, address, userState, userCity, userName, userDescription);
+              }
+            });
+            
+            // Code for placing debug events
+            // //Loop for placing Markers
+            // for(var i=0; i<address.length; i++){
+              
+            //   var spot = address[i];
+            //   var nam = userName[i];
+            //   var descrip = description[i];
+            //   codeAddress(geocoder, map, spot, nam, descrip);
+            // }  
+          }else{
+            //alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+           
+      //Places Markers
+      function codeAddress(geocoder, map, address, city, state, nam, descrip) {
+        //document.getElementById("test").innerHTML = nam;
+        geocoder.geocode({'address': address + ", " + city + " " + state}, function(results, status) {
+          if (status === 'OK') {
+            var infowindow = new google.maps.InfoWindow();
+            var marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location,
+              title: address
+            });
+            google.maps.event.addListener(marker, 'click', (function(marker) {
+                var contentString = '<div id="infoWindow">'
+                    +'<div id="bodyContent">'
+                    +'<p>'
+                    + "Name: " + nam + "<br>"
+                    + "Event Title: " + descrip + "<br>"
+                    + "Address: " + address + "<br>"
+                    + "City: " + city + "<br>"
+                    + "State: " + state + "<br>"
+                    +'</p>'
+                    +'</div>'
+                    + '</div>';
+              return function() {
+                    infowindow.setContent(contentString);
+                    infowindow.open(map, marker);
+                    google.maps.event.addListener(infowindow, 'click', (function(i){
+                        alert("You clicked on the infowindow for" + cityList[i][0]);
+                    }));
+                }
+                })(marker));
+          } else {
+            //alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+      
+
+    </script>
+    <script 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQP4SoFyVEn1BfUd54sFeVTqodT83NNfo&callback=initMap">
+    </script>
+  </body>
+</html>
