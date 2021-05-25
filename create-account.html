@@ -1,3 +1,5 @@
+<!-- Start user session -->
+<?php session_start(); ?>
 <!--DOCTYPE html-->
 <html>
   <head>
@@ -18,12 +20,13 @@
         <li>
           <a class="active" href="create-account.html">Create An Account</a>
         </li>
+        <li><a href="inbox.html">Inbox</a></li>
         <li>
           <!--Sign In-->
           <button class="open-button" onclick="openForm()">Sign In</button
           ><br /><br /><br />
           <div class="form-popup" id="myForm">
-            <form action="/action_page.php" class="form-container">
+            <form action="/backend/loginUser.php" class="form-container" method="POST">
               <h1>Login</h1>
 
               <label for="email"><b>Email</b></label>
@@ -34,15 +37,15 @@
                 required
               />
 
-              <label for="psw"><b>Password</b></label>
+              <label for="password"><b>Password</b></label>
               <input
                 type="password"
                 placeholder="Enter Password"
-                name="psw"
+                name="password"
                 required
               />
 
-              <button type="submit" class="btn">Login</button>
+              <button type="submit" name="submit" class="btn">Login</button>
               <button type="submit" class="btn cancel" onclick="closeForm()">
                 Close
               </button>
@@ -53,7 +56,7 @@
     </nav>
 
     <!--Places Map on page-->
-    <form action="/action_page.php">
+    <form action="/backend/addUserToDatabase.php" method="POST">
       
       <!--Box Info-->
       <div class="center">
@@ -104,8 +107,8 @@
       <label for="userAddress">Address</label><br />
       <input
         type="text"
-        id="userAdress"
-        name="UserAdress"
+        id="userAddress"
+        name="userAddress"
         value="400 e University way"
       /><br /><br />
 
@@ -118,7 +121,7 @@
       /><br /><br />
 
       <label for="userState">State</label><br />
-      <select name="state" id="state">
+      <select name="userState" id="state">
         <option value="AL">Alabama</option>
         <option value="AK">Alaska</option>
         <option value="AZ">Arizona</option>
@@ -172,9 +175,7 @@
         <option value="WY">Wyoming</option> </select
       ><br /><br />
 
-      <form action="">
-        <input type="button" id="myButton" value="Submit" />
-      </form>
+      <input type="submit" name="submit" id="myButton" value="Submit" />
       </p>
     </div>
     </form>
