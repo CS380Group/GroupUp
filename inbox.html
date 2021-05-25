@@ -1,0 +1,106 @@
+<!--DOCTYPE html-->
+<html>
+  <head>
+    <title>Sign-In Page</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="stylesheet.css" type="text/css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="sports.html">Sports</a></li>
+        <li><a href="community.html">Community</a></li>
+        <li><a href="gaming.html">Gaming</a></li>
+        <li><a href="create-event.html">Create an Event</a></li>
+        <li><a href="inbox.html">Inbox</a></li>
+        <li>
+          <!--Sign In-->
+          <button class="open-button" onclick="openForm()">Sign In</button
+          ><br /><br /><br />
+          <div class="form-popup" id="myForm">
+            <form action="/action_page.php" class="form-container">
+              <h1>Login</h1>
+
+              <label for="email"><b>Email</b></label>
+              <input
+                type="text"
+                placeholder="Enter Email"
+                name="email"
+                required
+              />
+
+              <label for="psw"><b>Password</b></label>
+              <input
+                type="password"
+                placeholder="Enter Password"
+                name="psw"
+                required
+              />
+
+              <button type="submit" class="btn">Login</button>
+              <button type="submit" class="btn cancel" onclick="closeForm()">
+                Close
+              </button>
+            </form>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+      
+      <!--Box Info-->
+      <div class="center">
+      <p style="border:2px; background-color: lightgray; border-style:solid; 
+                border-color:white; padding: 1em; width: 390px;">
+      <!--End of box info-->
+        
+      <!--Messaging-->
+      <meta charset="utf-8">
+      <meta content="width=device-width, initial-scale=1" name="viewport">
+      <title>Bugout chat tutorial</title>
+      <style>
+      pre { color: black; white-space: pre-wrap; word-wrap: break-word; text-shadow: 0 0 10px #ccc; }
+      #input { border-bottom: 1px solid #ccc; background-color: white; padding: 0.25em; outline: 0; }
+      #input::before { content: "> "; }
+    </style>
+    <script>
+      function log(message) {
+        document.getElementById("log").textContent += message + "\n";
+      }
+    </script>
+    <script src="https://chr15m.github.io/bugout/bugout.min.js" type="application/javascript"></script>
+
+    <pre id="log"></pre>
+    <pre id="input" contenteditable="true"></pre>
+  <script>
+    log("Send a message!");
+
+    var b = Bugout("bugout-chat-tutorial");
+    b.on("seen", function(address) { log(address + " [ seen ]"); });
+    log(b.address() + " [ me ]");
+  
+    b.on("message", function(address, message) {
+      log(address + ": " + message);
+    });
+
+    document.getElementById("input").onkeydown = function(ev) {
+      if (ev.keyCode == 13) {
+        if (b.lastwirecount) {
+          b.send(ev.target.textContent);
+          ev.target.textContent = "";
+        }
+        ev.preventDefault();
+      }
+    }
+
+  </script>  
+    
+    
+    <script src="scriptFiles/signIn.js"></script>
+        </p>
+    </div>
+  </body>
+</html>
+
