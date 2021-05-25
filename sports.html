@@ -1,3 +1,5 @@
+<!-- Start user session -->
+<?php session_start(); ?>
 <!--DOCTYPE html-->
 <html>
   <head>
@@ -20,21 +22,34 @@
         <li><a href="create-account.html">Create An Account</a></li>
         <li>
           <!--Sign In-->
-          <button class="open-button" onclick="openForm()">Sign In</button><br><br><br>
+          <button class="open-button" onclick="openForm()">Sign In</button
+          ><br /><br /><br />
           <div class="form-popup" id="myForm">
-            <form action="/action_page.php" class="form-container">
+            <form action="/backend/loginUser.php" class="form-container" method="POST">
               <h1>Login</h1>
 
               <label for="email"><b>Email</b></label>
-              <input type="text" placeholder="Enter Email" name="email" required>
+              <input
+                type="text"
+                placeholder="Enter Email"
+                name="email"
+                required
+              />
 
-              <label for="psw"><b>Password</b></label>
-              <input type="password" placeholder="Enter Password" name="psw" required>
+              <label for="password"><b>Password</b></label>
+              <input
+                type="password"
+                placeholder="Enter Password"
+                name="password"
+                required
+              />
 
-              <button type="submit" class="btn">Login</button>
-              <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
+              <button type="submit" name="submit" class="btn">Login</button>
+              <button type="submit" class="btn cancel" onclick="closeForm()">
+                Close
+              </button>
             </form>
-          </div>          
+          </div>
         </li>
       </ul>
     </nav>

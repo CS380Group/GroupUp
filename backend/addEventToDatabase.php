@@ -2,38 +2,107 @@
 
 <?php
 
+    // TODO: Split into functions to make more readable
+
     // TODO: Make this experience better visually.
   
-    // Connect to database
+    // Include database connect function
     include 'connectToDatabase.php';
 
-    // Include geocode funtion
+    // Include geocode function
     include 'geocodePosition.php';
+
+    // Include redirect function
+    include 'redirectToLastPage.php';
 
     // Checks if the submit button has been pressed
     if(isset($_POST['submit'])) {
 
-        //We need userName, userTitle, userType, userDescription, userPhone, userAddress, userCity, userState
+        session_start();
 
-        $userName = $_POST['userName'];
+        // Connect to database
+        // TODO : exception checking
+        $conn = connectToDatabase();
+
+        // Get current date
+        $dateOfCreation = date('Ymd H:i:s');
+
+        // Prepare event variables
+        $userName = $_SESSION['username'];
         $eventTitle = $_POST['userTitle'];
         $eventType = $_POST['userType'];
         $eventDescription = $_POST['userDescription'];
-        $userPhone = $_POST['userPhone'];
-        $userPhone = preg_replace('/[^0-9]/', '', $userPhone);
+        $eventPhone = $_POST['userPhone'];
+        $eventPhone = preg_replace('/[^0-9]/', '', $eventPhone);
         $eventAddress = $_POST['userAddress'];
         $eventCity = $_POST['userCity'];
         $eventState = $_POST['userState'];
 
+        // Prepare query to get userId from user's email
+        $stmt = $conn->prepare("SELECT userId FROM user WHERE emailAddress=?");
+        // Check for errors
+        if ($stmt == false) {
+            echo "Something went wrong when preparing the get userId statement. Please try again.";
+            displayRedirect();
+            die();
+        }
+        
+        // Bind parameters for query
+        $stmt->bind_param('s', $userName);
+        // Check for errors
+        if ($stmt == false) {
+            echo "Something went wrong when binding paramerters of the get userId statement. Please try again.";
+            displayRedirect();
+            die();
+        }
+
+        // Execute the query
+        $stmt->execute();
+        // Check for errors
+        if ($stmt == false) {
+            echo "Something went wrong when executing the get userId statement. Please try again.";
+            displayRedirect();
+            die();
+        }
+
+        // Get the results of the query
+        $result = $stmt->get_result();
+        // Check for errors
+        if ($stmt == false) {
+            echo "Something went wrong when getting the result from the get userId statement. Please try again.";
+            displayRedirect();
+            die();
+        }
+
+        // Close the connection
+        $stmt->close();
+
+        // If the number of entries is 0, the user does not exist in the database.
+        if (mysqli_num_rows($result) == 0) {
+            echo "Error: Please make sure you're signed in before submitting an event.";
+            displayRedirect();
+            die();
+        }
+
+        // If the number of users returned is larger than one, something is wrong with the database
+        if (mysqli_num_rows($result) > 1) {
+            echo "Error: Something went wrong with the database! Duplicate email addresses aren't allowed!";
+            displayRedirect();
+            die();
+        }
+
+        // Get the userId of the email address
+        $row = mysqli_fetch_assoc($result);
+        $userId = $row['userId'];
+   
         // Geocode address to get lat/long
         $eventAddress = $eventAddress . $eventCity . $eventState;
         $geoCode = geocode($eventAddress);
         if (!$geoCode) {
-            die("geocode failed");    
+            echo "Error: Something went wrong during the geocode.";
+            displayRedirect();
+            die();    
         }
-        
-        //Debug message
-        // print_r($geoCode);
 
         // Extract location data from geocode
         $latitude = $geoCode[0];
@@ -46,33 +115,63 @@
         $state = $stateZip[1];
         $zip = $stateZip[2];
         $country = $location[3];
-        $country = preg_replace('/[^A-Za-z]/', '', $country); 
+        $country = preg_replace('/[^A-Za-z]/', '', $country);
 
-        // Stores the sql query to be executed
-        $query = "INSERT INTO event (userName, eventTitle, eventType, eventDescription, userPhone, eventStreet, eventCity, eventState, eventZip, eventCountry, latitude, longitude) 
-            VALUES ('$userName', '$eventTitle', '$eventType', '$eventDescription', '$userPhone', '$street', '$city', '$state', '$zip', '$country', '$latitude', '$longitude')";
+        // Temp variables
+        $startDate = date('Y-m-d H:i:s');
+        $endDate = date('Y-m-d H:i:s'); 
 
-        // Execute the query and inform the user if it was successfull
-        if (!mysqli_query($conn, $query)) {
-            echo('An error occurred when submitting the event!');
-        } else {
-            echo "Event submitted successfully!";
+        // Prepare the insert event statement
+        $stmt = $conn->prepare(
+            "INSERT INTO event (
+                userId, 
+                eventTitle, 
+                eventType, 
+                eventDescription, 
+                eventPhone, 
+                eventStreet, 
+                eventCity, 
+                eventState, 
+                eventZip, 
+                eventCountry, 
+                latitude, 
+                longitude,
+                startDate,
+                endDate
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        if ($stmt == false) {
+            echo "Something went wrong while preparing the query. Please try again.";
+            displayRedirect();
+            die();
         }
-    }
+        
+        // Bind the parameters for the insert event statement
+        $stmt->bind_param('ssssssssssssss', $userId, $eventTitle, $eventType, $eventDescription, $eventPhone, $street, $city, $state, $zip, $country, $latitude, $longitude, $startDate, $endDate);
+        if ($stmt == false) {
+            echo "Something went wrong while binding parameters to the query. Please try again.";
+            displayRedirect();
+            die();
+        }
 
-    // Close the connection to the database
-    mysqli_close($conn);
+        // Execute the insert event statement
+        $stmt->execute();
+        if ($stmt == false) {
+            echo "Something went wrong while executing the query. Please try again.";
+            displayRedirect();
+            die();
+        } else {
+            echo "Event submitted successfully.";
+        }
 
-    // This will provide the user with a link that will take them to the previous page. Can be changed later.
-    $referer = filter_var($_SERVER['HTTP_REFERER'], FILTER_VALIDATE_URL);
 
-    // Handles whether the redirect will be php or javascript
-    if (!empty($referer)) {
-        echo '<p><a href="'. $referer .'" title="Return to the previous page">&laquo; Go back</a></p>';
+        // Close the connection
+        $stmt->close();
+
+        // Close the connection to the database
+        mysqli_close($conn);
     } else {
-        echo '<p><a href="javascript:history.go(-1)" title="Return to the previous page">&laquo; Go back</a></p>';
+        echo "Something went wrong :(";
     }
 
-    die();
-
+    displayRedirect();
 ?>
