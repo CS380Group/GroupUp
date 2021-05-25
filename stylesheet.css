@@ -125,4 +125,11 @@
 body {
   background-color: rgba(50, 115, 50, 0.3);
 }
+
+/*Center box in create event and create account*/
+.center {
+margin: auto;
+width: 60%;
+padding: 10px;
+}
         
