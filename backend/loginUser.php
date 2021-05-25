@@ -62,6 +62,7 @@
         }
 
         // Establish session variables
+        $_SESSION['key'] = session_start();
         $_SESSION['valid'] = true;
         $_SESSION['timeout'] = time();
         $_SESSION['username'] = $email;
