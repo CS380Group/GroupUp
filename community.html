@@ -7,6 +7,7 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta charset="utf-8" />
     <link rel="stylesheet" href="stylesheet.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
 
   <body>
@@ -58,55 +59,14 @@
     <h>Community Page</h>
 
     <!--Map-->
-    <div id="map"></div>
+    <div class="container">
+      <div class="left" id="map"></div>
+      <div class="right">
+        <div id="multiContainer"></div>
+      </div>
+    </div>
 
     <script>
-      //popup form
-      function openForm() {
-        document.getElementById("myForm").style.display = "block";
-      }
-
-      function closeForm() {
-        document.getElementById("myForm").style.display = "none";
-      }
-
-      // Debug Events
-      // //Values
-      // var geocoder;
-      // var map;
-      // var userName = [
-      //   "Lucy",
-      //   "Derrick",
-      //   "Josh",
-      //   "Steven",
-      //   "Amanda",
-      //   "Patrick",
-      //   "Will"
-      // ];
-
-      // var description = [
-      //   "Soccer Game",
-      //   "Looking for D&D Group",
-      //   "Community Service",
-      //   "Park Event",
-      //   "Job Opportunity",
-      //   "New Business Open",
-      //   "Ultimate Frisbee"
-      // ];
-
-      // var address = [
-      //   "801 e 18th ave",
-      //   "1081 umptanum rd",
-      //   "1300 e 3rd ave",
-      //   "400 w washington ave",
-      //   "805 n main st",
-      //   "608 e mountain view ave",
-      //   "1518 w university way"
-      // ];
-
-      // var city = "Ellensburg";
-      // var state = "WA";
-
       //Main Body
       function initMap() {
         geocoder = new google.maps.Geocoder();
@@ -146,78 +106,11 @@
                 placeMarker(map, streetAddress, city, state, country, latitude, longitude, eventTitle, eventDescription);
               }
             });
-
-            //Code for debug events
-            // //Loop for placing Markers
-            // for (var i = 0; i < address.length; i++) {
-            //   var spot = address[i];
-            //   var nam = userName[i];
-            //   var descrip = description[i];
-            //   codeAddress(geocoder, map, spot, nam, descrip);
-            // }
           } else {
             //alert('Geocode was not successful for the following reason: ' + status);
           }
         });
       }
-
-      // //Places Markers
-      // function codeAddress(geocoder, map, address, state, city, nam, descrip) {
-      //   geocoder.geocode(
-      //     { address: address + ", " + city + " " + state },
-      //     function(results, status) {
-      //       if (status === "OK") {
-      //         var infowindow = new google.maps.InfoWindow();
-      //         var marker = new google.maps.Marker({
-      //           map: map,
-      //           position: results[0].geometry.location,
-      //           title: address
-      //         });
-      //         google.maps.event.addListener(
-      //           marker,
-      //           "click",
-      //           (function(marker) {
-      //             var contentString =
-      //               '<div id="infoWindow">' +
-      //               '<div id="bodyContent">' +
-      //               "<p>" +
-      //               "Name: " +
-      //               nam +
-      //               "<br>" +
-      //               "Event Title: " +
-      //               descrip +
-      //               "<br>" +
-      //               "Address: " +
-      //               address +
-      //               "<br>" +
-      //               "City: " +
-      //               city +
-      //               "<br>" +
-      //               "State: " +
-      //               state +
-      //               "<br>" +
-      //               "</p>" +
-      //               "</div>" +
-      //               "</div>";
-      //             return function() {
-      //               infowindow.setContent(contentString);
-      //               infowindow.open(map, marker);
-      //               google.maps.event.addListener(infowindow, "click", function(
-      //                 i
-      //               ) {
-      //                 alert(
-      //                   "You clicked on the infowindow for" + cityList[i][0]
-      //                 );
-      //               });
-      //             };
-      //           })(marker)
-      //         );
-      //       } else {
-      //         //alert('Geocode was not successful for the following reason: ' + status);
-      //       }
-      //     }
-      //   );
-      // }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQP4SoFyVEn1BfUd54sFeVTqodT83NNfo&callback=initMap"></script>
     <script src="scriptFiles/signIn.js"></script>
