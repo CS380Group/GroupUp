@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS user (
     stateAddress CHAR(2),
     phoneNumber VARCHAR(15),
     password CHAR(41),
+    userImage LONGBLOB,
     joinDate DATETIME
 );
 CREATE TABLE IF NOT EXISTS event (
