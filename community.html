@@ -90,6 +90,10 @@
               // Debug Message
               // console.log(data.responseText);
               var data = JSON.parse(data.responseText);
+
+              // Display events in sidebar
+              addEventsToInfoBar(data);
+
               for (var i = 0; i < data.length; i++) {
                 var streetAddress = data[i].eventStreet;
                 var city = data[i].eventCity;
@@ -115,6 +119,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQP4SoFyVEn1BfUd54sFeVTqodT83NNfo&callback=initMap"></script>
     <script src="scriptFiles/signIn.js"></script>
     <script src="scriptFiles/communityScript.js"></script>
+    <script src="scriptFiles/addEventToInfoBar.js"></script>
     <script src="scriptFiles/markerUtils.js"></script>
   </body>
 </html>
