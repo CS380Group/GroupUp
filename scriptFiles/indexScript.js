@@ -46,44 +46,45 @@ var counterArr = [
 ];
 
 //inserts info bars
-for (var i = 0; i < nameArr.length; i++) {
-  var name = nameArr[i];
-  var title = titleArr[i];
-  var descrip = descripArr[i];
+function addEventsToInfoBar(eventsData) {
+  for (var i = 0; i < eventsData.length; i++) {
+    var name = eventsData[i].userName;
+    var title = eventsData[i].eventTitle;
+    var descrip = eventsData[i].eventDescription;
 
-  htmlElements += 
-    '<div class="box">'+
-      '<div class="card">'+
-        '<div class="container2">'+
-          '<div class="left2">'+
-            //'<div class="image" id="userPic"></div>'+
-            '<img src="'+ imgSrc[i] +'" id="userPic" style="width:130; height:130; object-fit: cover;">'+
-            '<h4 class="name">'+ name + '</h4>'+
-            '<div class="icons" style="text-align:center;">'+
-              '<button class="btn"><i class="fa fa-comments"></i></button>'+
-              '<button class="btn"><i class="fa fa-map-marker"></i></button>'+
+    htmlElements += 
+      '<div class="box">'+
+        '<div class="card">'+
+          '<div class="container2">'+
+            '<div class="left2">'+
+              //'<div class="image" id="userPic"></div>'+
+              '<img src="'+ imgSrc[i] +'" id="userPic" style="width:130; height:130; object-fit: cover;">'+
+              '<h4 class="name">'+ name + '</h4>'+
+              '<div class="icons" style="text-align:center;">'+
+                '<button class="btn"><i class="fa fa-comments"></i></button>'+
+                '<button class="btn"><i class="fa fa-map-marker"></i></button>'+
+              '</div>'+
+
+              '<div style="text-align:center;">'+
+                '<button class="btn" onclick="heartFunction('+ i +')"><i id="heart['+ i +']" class="fa fa-heart" style="color:black;"><span id="likeCounter['+ i +']">'+ counterArr[i] +'</span></i></button>'+
+
+                '<button class="btn"><i class="fa fa-bookmark"></i></button>'+
+              '</div>'+
             '</div>'+
-
-            '<div style="text-align:center;">'+
-              '<button class="btn" onclick="heartFunction('+ i +')"><i id="heart['+ i +']" class="fa fa-heart" style="color:black;"><span id="likeCounter['+ i +']">'+ counterArr[i] +'</span></i></button>'+
-
-              '<button class="btn"><i class="fa fa-bookmark"></i></button>'+
+            '<div class="right2">'+
+              '<h3>'+ title +'</h3>'+
+              '<div><p class="textbox" style="border: 1px solid black">'+descrip+'</p></div>' +
             '</div>'+
-          '</div>'+
-          '<div class="right2">'+
-            '<h3>'+ title +'</h3>'+
-            '<div><p class="textbox" style="border: 1px solid black">'+descrip+'</p></div>' +
           '</div>'+
         '</div>'+
       '</div>'+
-    '</div>'+
-    '<div class="border">Hello</div>';
+      '<div class="border">Hello</div>';  
+  }
+
+  //container for info side bar
+  var multiContainer = document.getElementById("multiContainer");
+  multiContainer.innerHTML = htmlElements;      
 }
-
-//container for info side bar
-var multiContainer = document.getElementById("multiContainer");
-multiContainer.innerHTML = htmlElements;      
-
 
 //like counter function
 function heartFunction(i){

@@ -87,9 +87,12 @@
 
             // Get locations from db and add them to the map
             makeLocationRequest('Ellensburg', './backend/getEventsByCity.php', function(data) {
-              // Debug Message
-              // console.log(data.responseText);
               var data = JSON.parse(data.responseText);
+              
+              // Display events in sidebar
+              addEventsToInfoBar(data);
+
+              // Extract event data and place them on the map
               for (var i = 0; i < data.length; i++) {
                 var streetAddress = data[i].eventStreet;
                 var city = data[i].eventCity;
@@ -107,6 +110,7 @@
               }
             });
           } else {
+            // TODO: Handle this error
             //alert('Geocode was not successful for the following reason: ' + status);
           }
         });
