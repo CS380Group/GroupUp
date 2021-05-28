@@ -63,7 +63,48 @@ function addEventsToInfoBar(eventsData) {
   
     //container for info side bar
     var multiContainer = document.getElementById("multiContainer");
-    multiContainer.innerHTML = htmlElements;      
+    multiContainer.innerHTML = htmlElements;
+
+    for (var i = 0; i < eventsData.length; i++) {
+      const eventElement= document.getElementById("event" + i);
+      const eventData = eventsData[i];
+      eventElement.addEventListener("click", function() {
+        console.log(eventData);
+        var multiCont = document.getElementById('multiContainer');
+        const multiBackup = Object.assign({}, multiCont);
+        multiCont.innerHTML =
+          '<div class="sidebarContainer">' + 
+          '<nav class="detailSidebar" id="navID">' + 
+              // '<button type="button" onclick="myFnc(this)"class="toggle-collapse" id="toggle-button">' +
+              //     '<span class="toggle-icon">' +
+
+              // //     '</span>' + 
+              // '</button>' +
+              '<ul class="side-nav">' + 
+                  '<li class="nav-item">' + 
+                      '<a href="a" class="site-name">Event</a>' + 
+                  '</li>' + 
+                  '<li class="nav-item">' + 
+                      '<a href="#" class="nav-link">Name</a>' + 
+                  '</li>' + 
+                  '<li class="nav-item">' + 
+                      '<a href="#" class="nav-link">Comments</a>' + 
+                  '</li>' + 
+                  '<li class="nav-item">' + 
+                      '<a href="#" class="nav-link">People Going</a>' +
+                  '</li>' +
+                  '<li class="nav-item">' + 
+                      '<a href="#" class="nav-link">Time</a>' + 
+                  '</li>' + 
+                  '<li class="nav-item">' + 
+                      '<a href="#" class="nav-link">Location</a>' + 
+                  '</li>' + 
+              '</ul>' +
+          '</nav>' + 
+      '</div>';
+      });
+    }
+
 }
 
 function constructHtmlForSidebar(imageSource, userName, eventName, heartCounter, i, eventDescription) {
@@ -85,7 +126,7 @@ function constructHtmlForSidebar(imageSource, userName, eventName, heartCounter,
                 '<button class="btn"><i class="fa fa-bookmark"></i></button>'+
             '</div>'+
             '</div>'+
-            '<div class="right2">'+
+            '<div class="right2" id="event' + i + '">'+
             '<h3>'+ eventName +'</h3>'+
             '<div><p class="textbox" style="border: 1px solid black">'+eventDescription+'</p></div>' +
             '</div>'+

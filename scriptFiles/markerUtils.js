@@ -11,6 +11,8 @@ function placeMarker(map, street, city, state, country, latitude, longitude, eve
     marker,
     "click",
     (function(marker) {
+      // Open Sidebar
+      
       var contentString =
         '<div id="infoWindow">' +
         '<div id="bodyContent">' +
@@ -37,11 +39,9 @@ function placeMarker(map, street, city, state, country, latitude, longitude, eve
         "</div>" +
         "</div>";
       return function() {
-        infowindow.setContent(contentString);
+        // infowindow.setContent(contentString);
         infowindow.open(map, marker);
-        google.maps.event.addListener(infowindow, "click", function(
-          i
-        ) {
+        google.maps.event.addListener(infowindow, "click", function(i) {
           alert(
             "You clicked on the infowindow for" + cityList[i][0]
           );

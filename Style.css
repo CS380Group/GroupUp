@@ -5,7 +5,7 @@ body{
     background: #DAFFEF;
 }
 
-.navbar{
+.detailSidebar{
     position: absolute;
     right: 0px;
     width: 696px;
@@ -15,7 +15,7 @@ body{
     transition: .800s ease;
 }
 
-.navbar > .side-nav{
+.detailSidebar > .side-nav{
     list-style-type: none;
     padding: 0;
     margin: 0;
