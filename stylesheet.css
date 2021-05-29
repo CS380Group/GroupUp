@@ -40,8 +40,9 @@
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
 #map {
-  height: 80%;
+  height: 5%;
 }
+
 /* Optional: Makes the sample page fill the window. */
 html,
 body {
@@ -176,6 +177,7 @@ div.left3,
 div.right3 {
   float: left;
 }
+
 /*div.left3 {}
   div.right3 {}*/
 
@@ -188,17 +190,20 @@ div.right3 {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
 h3 {
   font-size: 30px;
   text-align: center;
   color: white;
 }
+
 .textbox {
   width: 557px;
   height: 170px;
   background-color: white;
   font-size: 20px;
 }
+
 h4 {
   text-align: center;
   height: 5px;
