@@ -1,57 +1,60 @@
 /* Style info for navigation bar. */
 .navbar ul {
-    display: flex;
-    align-items: stretch;
-    justify-content: space-between;
-    /* list-style-type: none; */
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    border: 1px solid #e7e7e7;
-    background-color: #f3f3f3;
-    height: 7%;
-  }
-  
-  .navbar li {
-    display: block;
-    flex: 0 1 auto;
-    list-style-type: none;
-    padding: .5%;
-    height: auto;
-  }
-  
-  .navbar li a {
-    display: inline;
-    color: #666;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  /* list-style-type: none; */
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  border: 1px solid #e7e7e7;
+  background-color: #f3f3f3;
+  height: 7%;
+}
 
-  }
-  
-  .navbar li a:hover:not(.active) {
-    background-color: #ddd;
-  }
-  
-  .navbar li a.active {
-    color: white;
-    background-color: #4CAF50;
-  }
-  
+.navbar li {
+  display: block;
+  flex: 0 1 auto;
+  list-style-type: none;
+  padding: 0.5%;
+  height: auto;
+}
+
+.navbar li a {
+  display: inline;
+  color: #666;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar li a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+.navbar li a.active {
+  color: white;
+  background-color: #4caf50;
+}
+
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-      #map {
-        height: 80%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+#map {
+  height: 5%;
+}
+
+/* Optional: Makes the sample page fill the window. */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
 /*Pop up form*/
-{box-sizing: border-box;}
+ {
+  box-sizing: border-box;
+}
 
 /*Button used to open the contact form - fixed at the bottom of the page */
 .open-button {
@@ -61,13 +64,13 @@
   border: none;
   cursor: pointer;
   opacity: 0.8;
-  /*position: fixed;*/ 
+  /*position: fixed;*/
   /*bottom: 23px;*/
   right: 28px;
   /*width: 280px;*/
 }
 
-/* The popup form - hidden by default*/ 
+/* The popup form - hidden by default*/
 .form-popup {
   display: none;
   position: fixed;
@@ -77,15 +80,16 @@
   z-index: 9;
 }
 
-/*Add styles to the form container*/ 
+/*Add styles to the form container*/
 .form-container {
   max-width: 300px;
   padding: 10px;
   background-color: white;
 }
 
- /*Full-width input fields */
-.form-container input[type=text], .form-container input[type=password] {
+/*Full-width input fields */
+.form-container input[type="text"],
+.form-container input[type="password"] {
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -93,21 +97,22 @@
   background: #f1f1f1;
 }
 
- /*When the inputs get focus, do something */
-.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+/*When the inputs get focus, do something */
+.form-container input[type="text"]:focus,
+.form-container input[type="password"]:focus {
   background-color: #ddd;
   outline: none;
 }
 
 /* Set a style for the submit/login button */
 .form-container .btn {
-  background-color: #04AA6D;
+  background-color: #04aa6d;
   color: white;
   padding: 16px 20px;
   border: none;
   cursor: pointer;
   width: 100%;
-  margin-bottom:10px;
+  margin-bottom: 10px;
   opacity: 0.8;
 }
 
@@ -117,7 +122,8 @@
 }
 
 /*Add some hover effects to buttons */
-.form-container .btn:hover, .open-button:hover {
+.form-container .btn:hover,
+.open-button:hover {
   opacity: 1;
 }
 
@@ -128,8 +134,103 @@ body {
 
 /*Center box in create event and create account*/
 .center {
-margin: auto;
-width: 60%;
-padding: 10px;
+  margin: auto;
+  width: 60%;
+  padding: 10px;
 }
-        
+
+div.container {
+  margin: 15px;
+}
+div.left,
+div.right {
+  float: left;
+}
+div.left {
+  padding: 390px;
+  width: 20%;
+}
+div.right {
+  border: 1px solid #4caf50;
+  height: 827px;
+  width: 37.8%;
+  overflow-y: scroll;
+  background-color: lightgrey;
+}
+
+/*div.container2 {}*/
+div.left2,
+div.right2 {
+  float: left;
+}
+div.left2 {
+  background-color: white;
+}
+div.right2 {
+  width: 559px;
+  height: 266px;
+  background-image: url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);
+}
+
+/*div.container3 {}*/
+div.left3,
+div.right3 {
+  float: left;
+}
+
+/*div.left3 {}
+  div.right3 {}*/
+
+.card {
+  background-color: white;
+}
+
+.cover {
+  /*background-image: url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);*/
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+h3 {
+  font-size: 30px;
+  text-align: center;
+  color: white;
+}
+
+.textbox {
+  width: 557px;
+  height: 170px;
+  background-color: white;
+  font-size: 20px;
+}
+
+h4 {
+  text-align: center;
+  height: 5px;
+}
+
+.btn {
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 12px 16px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: lightgrey;
+}
+
+.border {
+  background-color: black;
+  width: 690px;
+  font-size: 3px;
+}
+
+div.image {
+  content: url(https://cdn.glitch.com/ee8fe43d-07e1-4e6b-829e-9a5845cad499%2Fphoto-1522075469751-3a6694fb2f61.jpg?v=1621976348843);
+  width: 130;
+  height: 130;
+}

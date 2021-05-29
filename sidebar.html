@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Sidebar Menu</title>
+
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+        <link rel="stylesheet" href="Style.css">
+    </head>
+    <body>
+        <div class="container">
+            <nav class="navbar" id="navID">
+                <button type="button" onclick="myFnc(this)"class="toggle-collapse" id="toggle-button">
+                    <span class="toggle-icon">
+
+                    </span>
+                </button>
+                <ul class="side-nav">
+                    <li class="nav-item">
+                        <a href="a" class="site-name">Event</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Name</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Comments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">People Going</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Time</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Location</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <script>
+
+        function myFnc(e){
+            
+            e.classList.toggle("show");
+
+            var elem = document.getElementById("navID"),
+            Style = window.getComputedStyle(elem),
+            right = Style.getPropertyValue("right");
+
+            if(right == "0px"){
+                elem.style.right = "-696px";
+            }else{
+                elem.style.right = "0px";
+            }
+        }
+
+
+        </script>
+    </body>
+</html>
