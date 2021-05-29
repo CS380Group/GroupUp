@@ -65,13 +65,22 @@ function addEventsToInfoBar(eventsData) {
     var multiContainer = document.getElementById("multiContainer");
     multiContainer.innerHTML = htmlElements;
 
+    // Add click event to these list items and have them display event data
     for (var i = 0; i < eventsData.length; i++) {
-      const eventElement= document.getElementById("event" + i);
+      const eventElement = document.getElementById("event" + i);
       const eventData = eventsData[i];
-      eventElement.addEventListener("click", function() {
+      const eventName = eventsData[i].eventTitle;
+      const eventDescrip = eventsData[i].eventDescription;
+      const eventComments = 'Comments Coming Soon :)';
+      const usersAttending = 'Attendance Coming Soon :)';
+      const time = eventsData[i].startDate;
+      const eventLocation = eventsData[i].eventStreet + ' ' + eventsData[i].eventCity + ', ' + eventsData[i].eventState;
+      eventElement.addEventListener("click", function(eventData) {
         console.log(eventData);
         var multiCont = document.getElementById('multiContainer');
+        // In case we need to old configuration, before the overwrite.
         const multiBackup = Object.assign({}, multiCont);
+        
         multiCont.innerHTML =
           '<div class="sidebarContainer">' + 
           '<nav class="detailSidebar" id="navID">' + 
@@ -80,25 +89,28 @@ function addEventsToInfoBar(eventsData) {
 
               // //     '</span>' + 
               // '</button>' +
-              '<ul class="side-nav">' + 
+              '<ul class="side-nav">' +
                   '<li class="nav-item">' + 
-                      '<a href="a" class="site-name">Event</a>' + 
+                      '<a href="#" class="site-name">Event</a>' + 
                   '</li>' + 
                   '<li class="nav-item">' + 
-                      '<a href="#" class="nav-link">Name</a>' + 
+                      '<a href="#" class="nav-link">' + eventName + '</a>' + 
                   '</li>' + 
                   '<li class="nav-item">' + 
-                      '<a href="#" class="nav-link">Comments</a>' + 
+                      '<a href="#" class="nav-link">' + eventComments + '</a>' + 
                   '</li>' + 
                   '<li class="nav-item">' + 
-                      '<a href="#" class="nav-link">People Going</a>' +
+                      '<a href="#" class="nav-link">' + usersAttending + '</a>' +
                   '</li>' +
                   '<li class="nav-item">' + 
-                      '<a href="#" class="nav-link">Time</a>' + 
+                      '<a href="#" class="nav-link">Start Time: ' + time + '</a>' + 
                   '</li>' + 
                   '<li class="nav-item">' + 
-                      '<a href="#" class="nav-link">Location</a>' + 
+                      '<a href="#" class="nav-link">Event Location: ' + eventLocation + '</a>' + 
                   '</li>' + 
+                  '<li class="nav-item">' + 
+                      '<a href="javascript:window.location.reload()" class="nav-link">Back</a>' + 
+                  '</li>' +  
               '</ul>' +
           '</nav>' + 
       '</div>';
@@ -107,6 +119,7 @@ function addEventsToInfoBar(eventsData) {
 
 }
 
+// Constructs the html for the sidebar elements
 function constructHtmlForSidebar(imageSource, userName, eventName, heartCounter, i, eventDescription) {
     html = '<div class="box">'+
         '<div class="card">'+
@@ -114,7 +127,7 @@ function constructHtmlForSidebar(imageSource, userName, eventName, heartCounter,
             '<div class="left2">'+
             //'<div class="image" id="userPic"></div>'+
             '<img src="'+ imageSource +'" id="userPic" style="width:130; height:130; object-fit: cover;">'+
-            '<h4 class="name"> User: '+ userName + '</h4>'+
+            '<h4 class="name"> UserId: '+ userName + '</h4>'+
             '<div class="icons" style="text-align:center;">'+
                 '<button class="btn"><i class="fa fa-comments"></i></button>'+
                 '<button class="btn"><i class="fa fa-map-marker"></i></button>'+
