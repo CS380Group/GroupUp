@@ -174,4 +174,5 @@
     }
 
     displayRedirect();
+    die;
 ?>

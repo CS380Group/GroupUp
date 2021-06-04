@@ -54,5 +54,4 @@
 
     // Return the contents of the query as a JSON Object
     echo json_encode($rows);
-
 ?>

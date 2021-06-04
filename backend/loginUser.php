@@ -69,9 +69,9 @@
 
         // Debug
         echo "User " . $_SESSION['username'] . " is now logged in!";
-
-        displayRedirect();
+   } else {
+        echo "Something went wrong. Please try again.";
    }
 
-
+   displayRedirect();
 ?>

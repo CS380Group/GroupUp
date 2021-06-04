@@ -121,5 +121,6 @@
 
         // Display redirect
         displayRedirect();
+        die;
     }
 ?>

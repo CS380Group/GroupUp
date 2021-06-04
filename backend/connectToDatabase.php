@@ -13,6 +13,5 @@
             die('Could not connect to database.');
         }
         return $conn;
-    }
-    
+    }    
 ?>
