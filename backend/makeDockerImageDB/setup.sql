@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS user (
     joinDate DATETIME
 );
 CREATE TABLE IF NOT EXISTS event (
-    event_id INT AUTO_INCREMENT PRIMARY KEY,
+    eventId INT AUTO_INCREMENT PRIMARY KEY,
     userId INT, 
     eventTitle VARCHAR(50), 
     eventType VARCHAR(30), 
@@ -29,6 +29,13 @@ CREATE TABLE IF NOT EXISTS event (
     startDate DATETIME,
     endDate DATETIME,
     FOREIGN KEY (userId) REFERENCES user(userId)
+);
+CREATE TABLE IF NOT EXISTS userJoinEvent (
+    joinId INT AUTO_INCREMENT PRIMARY KEY,
+    userId INT,
+    eventId INT,
+    FOREIGN KEY (userId) REFERENCES user(userId),
+    FOREIGN KEY (eventId) REFERENCES event(eventId)
 );
 CREATE TABLE IF NOT EXISTS directMessage (
     messageId INT AUTO_INCREMENT PRIMARY KEY,
@@ -46,5 +53,5 @@ CREATE TABLE IF NOT EXISTS eventComment (
     commentUser INT,
     commentContents VARCHAR(8000),
     FOREIGN KEY (commentUser) REFERENCES user(userId),
-    FOREIGN KEY (commentEvent) REFERENCES event(event_id)
+    FOREIGN KEY (commentEvent) REFERENCES event(eventId)
 );
