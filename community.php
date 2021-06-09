@@ -6,7 +6,7 @@
 <!--DOCTYPE html-->
 <html>
   <head>
-    <title>Main Page</title>
+    <title>Community Page</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta charset="utf-8" />
     <link rel="stylesheet" href="stylesheet.css" type="text/css" />
@@ -18,12 +18,12 @@
     <!--Nav Bar-->
     <nav class="navbar">
       <ul>
-        <li><a class="active" href="index.html">Home</a></li>
-        <li><a href="sports.html">Sports</a></li>
-        <li><a href="community.html">Community</a></li>
-        <li><a href="gaming.html">Gaming</a></li>
-        <li><a href="create-event.html">Create an Event</a></li>
-        <li><a href="create-account.html">Create An Account</a></li>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="sports.php">Sports</a></li>
+        <li><a class="active" ref="community.php">Community</a></li>
+        <li><a href="gaming.php">Gaming</a></li>
+        <li><a href="create-event.php">Create an Event</a></li>
+        <li><a href="create-account.php">Create An Account</a></li>
         <li><a href="inbox.html">Inbox</a></li>
         <li>
           <?php
@@ -63,13 +63,13 @@
       </ul>
     </nav>
 
-    <!--Page Title -->
-    <h>Home Page</h>
+    <!--Page Title-->
+    <h>Community Page</h>
 
     <!--Map-->
     <div class="container">
       <div class="left" id="map"></div>
-      <div class="right" id="eventDetails">
+      <div class="right">
         <div id="multiContainer"></div>
       </div>
     </div>
@@ -78,7 +78,7 @@
       //Main Body
       function initMap() {
         geocoder = new google.maps.Geocoder();
-        //TODO: Change default address to the city the user is in or has selected
+        // TODO: Make default address center of returned results
         geocoder.geocode({ address: "Ellensburg" }, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             //alert(results[0].geometry.location)
@@ -94,13 +94,14 @@
             );
 
             // Get locations from db and add them to the map
-            makeLocationRequest('Ellensburg', './backend/getEventsByCity.php', function(data) {
+            makeCategoryRequest('community', './backend/getEventsByCategory.php', function(data) {
+              // Debug Message
+              // console.log(data.responseText);
               var data = JSON.parse(data.responseText);
-              
+
               // Display events in sidebar
               addEventsToInfoBar(data);
 
-              // Extract event data and place them on the map
               for (var i = 0; i < data.length; i++) {
                 var streetAddress = data[i].eventStreet;
                 var city = data[i].eventCity;
@@ -118,7 +119,6 @@
               }
             });
           } else {
-            // TODO: Handle this error
             //alert('Geocode was not successful for the following reason: ' + status);
           }
         });
@@ -126,7 +126,7 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQP4SoFyVEn1BfUd54sFeVTqodT83NNfo&callback=initMap"></script>
     <script src="scriptFiles/signIn.js"></script>
-    <script src="scriptFiles/indexScript.js"></script>
+    <script src="scriptFiles/communityScript.js"></script>
     <script src="scriptFiles/addEventToInfoBar.js"></script>
     <script src="scriptFiles/markerUtils.js"></script>
   </body>

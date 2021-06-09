@@ -1,27 +1,32 @@
 <!-- Start user session -->
 <?php 
+  include './backend/redirectToLastPage.php';
   session_start(); 
+  if (!isset($_SESSION['username'])) {
+    echo "Please sign in before attempting to create an event.";
+    displayRedirect();
+    die;
+  }
 ?>
 
 <!--DOCTYPE html-->
 <html>
   <head>
-    <title>Sign-In Page</title>
+    <title>Create Event Page</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta charset="utf-8" />
     <link rel="stylesheet" href="stylesheet.css" type="text/css" />
   </head>
   <body>
+    <!--Nav Bar-->
     <nav class="navbar">
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="sports.html">Sports</a></li>
-        <li><a href="community.html">Community</a></li>
-        <li><a href="gaming.html">Gaming</a></li>
-        <li><a href="create-event.html">Create an Event</a></li>
-        <li>
-          <a class="active" href="create-account.html">Create An Account</a>
-        </li>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="sports.php">Sports</a></li>
+        <li><a href="community.php">Community</a></li>
+        <li><a href="gaming.php">Gaming</a></li>
+        <li><a class="active" href="create-event.php">Create an Event</a></li>
+        <li><a href="create-account.php">Create An Account</a></li>
         <li><a href="inbox.html">Inbox</a></li>
         <li>
           <?php
@@ -61,30 +66,49 @@
       </ul>
     </nav>
 
-    <!--Places Map on page-->
-    <form action="/backend/addUserToDatabase.php" method="POST">
+    <!--Places Marker on page-->
+    <form action="./backend/addEventToDatabase.php" method="POST">
       
       <!--Box Info-->
       <div class="center">
       <p style="border:2px; background-color: lightgray; border-style:solid; 
                 border-color:white; padding: 1em; width: 390px;">
       <!--End of box info-->
-        
-      <label for="userFirstName">First Name</label><br />
+      
+        <label for="userName">Name</label><br />
       <input
         type="text"
-        id="userFirstName"
-        name="userFirstName"
-        value="John"
+        id="userName"
+        name="userName"
+        value="John Doe"
       /><br /><br />
 
-      <label for="userLastName">Last Name</label><br />
+      <label for="userTitle">Event Title</label><br />
       <input
         type="text"
-        id="userLastName"
-        name="userLastName"
-        value="Doe"
+        id="userTitle"
+        name="userTitle"
+        value="Basketball Game"
       /><br /><br />
+
+      <label for="userType">Event Type</label><br />
+      <select name="userType" id="userType">
+        <option value="sports" selected>Sports</option>
+        <option value="community">Community</option>
+        <option value="gaming">Gaming</option> </select
+      ><br /><br />
+
+      <label for="userDescription">Description</label><br />
+      <textarea
+        type="text"
+        id="userDescription"
+        name="userDescription"
+        row="20"
+        cols="50"
+        resize="none"
+      >
+Looking for people to play basketball with.</textarea
+      ><br /><br />
 
       <label for="userPhone">Phone Number</label><br />
       <input
@@ -92,22 +116,6 @@
         id="userPhone"
         name="userPhone"
         value="(555) 555-5555"
-      /><br /><br />
-
-      <label for="userEmail">Email</label><br />
-      <input
-        type="text"
-        id="userEmail"
-        name="userEmail"
-        value="doej@cwu.edu"
-      /><br /><br />
-
-      <label for="userPassword">Password</label><br />
-      <input
-        type="text"
-        id="userPasword"
-        name="userPassword"
-        value="password"
       /><br /><br />
 
       <label for="userAddress">Address</label><br />
@@ -127,7 +135,7 @@
       /><br /><br />
 
       <label for="userState">State</label><br />
-      <select name="userState" id="state">
+      <select name="userState" id="userState">
         <option value="AL">Alabama</option>
         <option value="AK">Alaska</option>
         <option value="AZ">Arizona</option>
@@ -185,7 +193,8 @@
       </p>
     </div>
     </form>
+
     <script src="scriptFiles/signIn.js"></script>
-    <script src="scriptFiles/create-accountScript.js"></script>
+    <script src="scriptFiles/create-eventScript.js"></script>
   </body>
 </html>
