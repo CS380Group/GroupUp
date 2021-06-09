@@ -7,6 +7,7 @@
 
     // Connect to database
     include 'connectToDatabase.php';
+    include 'redirectToLastPage.php';
 
     // Connect to the database
     $conn = connectToDatabase();
