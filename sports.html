@@ -19,12 +19,12 @@
     <!--Nav Bar-->
      <nav class="navbar">
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a class="active" href="sports.html">Sports</a></li>
-        <li><a href="community.html">Community</a></li>
-        <li><a href="gaming.html">Gaming</a></li>
-        <li><a href="create-event.html">Create an Event</a></li>
-        <li><a href="create-account.html">Create An Account</a></li>
+        <li><a href="index.php">Home</a></li>
+        <li><a class="active" href="sports.php">Sports</a></li>
+        <li><a href="community.php">Community</a></li>
+        <li><a href="gaming.php">Gaming</a></li>
+        <li><a href="create-event.php">Create an Event</a></li>
+        <li><a href="create-account.php">Create An Account</a></li>
         <li><a href="inbox.html">Inbox</a></li>
         <li>
           <?php
