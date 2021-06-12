@@ -28,7 +28,7 @@
         <li>
           <?php
             if (isset($_SESSION['username'])) {
-              echo '<a href="myAccount.html">My Account</a>';
+              echo '<a href="user-page.php">My Account</a>';
             }
             else {
               echo '<button class="open-button" onclick="openForm()">Sign In</button' . 

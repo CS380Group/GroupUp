@@ -1,8 +1,5 @@
 <!-- Start user session -->
-<?php 
-  session_start(); 
-?>
-
+<?php session_start(); ?>
 <!--DOCTYPE html-->
 <html>
   <head>
@@ -14,49 +11,45 @@
   <body>
     <nav class="navbar">
       <ul>
-        <li><a href="index.php">Home</a></li>
-        <li><a href="sports.php">Sports</a></li>
-        <li><a href="community.php">Community</a></li>
-        <li><a href="gaming.php">Gaming</a></li>
-        <li><a href="create-event.php">Create an Event</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="sports.html">Sports</a></li>
+        <li><a href="community.html">Community</a></li>
+        <li><a href="gaming.html">Gaming</a></li>
+        <li><a href="create-event.html">Create an Event</a></li>
         <li>
-          <a class="active" href="create-account.php">Create An Account</a>
+          <a class="active" href="create-account.html">My Account</a>
         </li>
-        <li><a href="inbox.php">Inbox</a></li>
+        <li><a href="inbox.html">Inbox</a></li>
         <li>
-          <?php
-            if (isset($_SESSION['username'])) {
-              echo '<a href="user-page.php">My Account</a>';
-            }
-            else {
-              echo '<button class="open-button" onclick="openForm()">Sign In</button' . 
-                '><br /><br /><br />' . 
-                '<div class="form-popup" id="myForm">' . 
-                  '<form action="/backend/loginUser.php" class="form-container" method="POST">' . 
-                    '<h1>Login</h1>' . 
-      
-                    '<label for="email"><b>Email</b></label>' .
-                    '<input ' . 
-                      'type="text"' . 
-                      'placeholder="Enter Email"' .
-                      'name="email"' . 
-                      'required' . 
-                    '/>' .
-                    '<label for="psw"><b>Password</b></label>' . 
-                    '<input ' . 
-                      'type="password"' . 
-                      'placeholder="Enter Password"' .
-                      'name="password"' . 
-                      'required' . 
-                    '/>' . 
-                    '<button type="submit" name="submit" class="btn">Login</button>' . 
-                    '<button type="submit" class="btn cancel" onclick="closeForm()">' . 
-                      'Close' . 
-                    '</button>' . 
-                  '</form>' .
-                '</div>';
-            }
-          ?>
+          <!--Sign In-->
+          <button class="open-button" onclick="openForm()">Sign In</button
+          ><br /><br /><br />
+          <div class="form-popup" id="myForm">
+            <form action="/backend/loginUser.php" class="form-container" method="POST">
+              <h1>Login</h1>
+
+              <label for="email"><b>Email</b></label>
+              <input
+                type="text"
+                placeholder="Enter Email"
+                name="email"
+                required
+              />
+
+              <label for="password"><b>Password</b></label>
+              <input
+                type="password"
+                placeholder="Enter Password"
+                name="password"
+                required
+              />
+
+              <button type="submit" name="submit" class="btn">Login</button>
+              <button type="submit" class="btn cancel" onclick="closeForm()">
+                Close
+              </button>
+            </form>
+          </div>
         </li>
       </ul>
     </nav>
