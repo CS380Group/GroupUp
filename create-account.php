@@ -22,7 +22,7 @@
         <li>
           <a class="active" href="create-account.php">Create An Account</a>
         </li>
-        <li><a href="inbox.html">Inbox</a></li>
+        <li><a href="inbox.php">Inbox</a></li>
         <li>
           <?php
             if (isset($_SESSION['username'])) {

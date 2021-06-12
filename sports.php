@@ -25,11 +25,11 @@
         <li><a href="gaming.php">Gaming</a></li>
         <li><a href="create-event.php">Create an Event</a></li>
         <li><a href="create-account.php">Create An Account</a></li>
-        <li><a href="inbox.html">Inbox</a></li>
+        <li><a href="inbox.php">Inbox</a></li>
         <li>
           <?php
             if (isset($_SESSION['username'])) {
-              echo '<a href="myAccount.html">My Account</a>';
+              echo '<a href="user-page.php">My Account</a>';
             }
             else {
               echo '<button class="open-button" onclick="openForm()">Sign In</button' . 

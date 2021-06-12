@@ -23,7 +23,7 @@
         <li><a class="active" href="gaming.php">Gaming</a></li>
         <li><a href="create-event.php">Create an Event</a></li>
         <li><a href="create-account.php">Create An Account</a></li>
-        <li><a href="inbox.html">Inbox</a></li>
+        <li><a href="inbox.php">Inbox</a></li>
         <li>
           <?php
             if (isset($_SESSION['username'])) {
