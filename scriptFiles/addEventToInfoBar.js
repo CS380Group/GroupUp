@@ -53,10 +53,11 @@ function addEventsToInfoBar(eventsData) {
     } else {
         for (var i = 0; i < eventsData.length; i++) {
         var name = eventsData[i].userId;
+        var eventId = eventsData[i].eventId;
         var title = eventsData[i].eventTitle;
         var descrip = eventsData[i].eventDescription;
     
-        htmlElements += constructHtmlForSidebar(imgSrc[i], name, title, counterArr[i], i, descrip);
+        htmlElements += constructHtmlForSidebar(imgSrc[i], eventId, name, title, counterArr[i], i, descrip);
             
         }
     }
@@ -115,12 +116,13 @@ function addEventsToInfoBar(eventsData) {
           '</nav>' + 
       '</div>';
       });
+      
     }
 
 }
 
 // Constructs the html for the sidebar elements
-function constructHtmlForSidebar(imageSource, userName, eventName, heartCounter, i, eventDescription) {
+function constructHtmlForSidebar(imageSource, eventId, userName, eventName, heartCounter, i, eventDescription) {
     html = '<div class="box">'+
         '<div class="card">'+
         '<div class="container2">'+
@@ -132,11 +134,12 @@ function constructHtmlForSidebar(imageSource, userName, eventName, heartCounter,
                 '<button class="btn"><i class="fa fa-comments"></i></button>'+
                 '<button class="btn"><i class="fa fa-map-marker"></i></button>'+
             '</div>'+
-
-            '<div style="text-align:center;">'+
+            '<div style="text-align:center;">'+                
                 '<button class="btn" onclick="heartFunction('+ i +')"><i id="heart['+ i +']" class="fa fa-heart" style="color:black;"><span id="likeCounter['+ i +']">'+ heartCounter +'</span></i></button>'+
-
-                '<button class="btn"><i class="fa fa-bookmark"></i></button>'+
+                '<form action="./backend/addUserToEvent.php" method="POST">' + 
+                  '<input style="display:none;" class="input" name="eventId" type="text" id="eventId" value="' + eventId + '"/>' + 
+                  '<button class="btn" name="joinEvent" id="joinEvent' + eventId + '"><i class="fa fa-bookmark"></i></button>'+  
+                '</form>' +
             '</div>'+
             '</div>'+
             '<div class="right2" id="event' + i + '">'+
@@ -146,7 +149,10 @@ function constructHtmlForSidebar(imageSource, userName, eventName, heartCounter,
         '</div>'+
         '</div>'+
     '</div>'+
-    '<div class="border">Hello</div>';
+    '<div class="border">Hello</div>' + 
+    // TODO : fix this. Stopgap solution.
+    '<br /><br />' + 
+    '<br /><br />';
     return html;
 }
 
