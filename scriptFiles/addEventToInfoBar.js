@@ -131,7 +131,7 @@ function constructHtmlForSidebar(imageSource, eventId, userName, eventName, hear
             '<img src="'+ imageSource +'" id="userPic" style="width:130; height:130; object-fit: cover;">'+
             '<h4 class="name"> UserId: '+ userName + '</h4>'+
             '<div class="icons" style="text-align:center;">'+
-                '<button class="btn"><i class="fa fa-comments"></i></button>'+
+                '<a href="sendMessage.php?eventId=' + eventId + '"> <button class="btn"><i class="fa fa-comments"></i></button></a>'+
                 '<button class="btn"><i class="fa fa-map-marker"></i></button>'+
             '</div>'+
             '<div style="text-align:center;">'+                
