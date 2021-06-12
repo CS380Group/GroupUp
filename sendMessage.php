@@ -1,3 +1,13 @@
+<?php
+  include './backend/redirectToLastPage.php';
+  session_start();
+  if (!isset($_SESSION['username'])) {
+    echo "Please sign in before attempting to message another user.";
+    displayRedirect();
+    die;
+  }
+  $_SESSION['eventId'] = $_GET['eventId'];
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -23,18 +33,16 @@
    <link rel="stylesheet" href="Style3.css">
 
   <form class="gform pure-form pure-form-stacked" method="POST" data-email="example@email.net"
-  action="google-apps-script.js">
+  action="./backend/sendMessage.php">
     <!-- change the form action to your script url -->
 
     <div class="form-elements">
       <fieldset class="pure-group">
-        <label for="nam">Message Sender: </label>
-        <input id="nam" name="nam" value="" />
+        <label for="nam" name="senderEmail">Message Sender: <?php echo $_SESSION['username']; ?></label>
       </fieldset>
 
       <fieldset class="pure-group">
-        <label for="owner">Event Owner: </label>
-        <input id="owner" name="owner" value="" />
+        <label for="owner" name="recipEventId">Event Owner: <?php echo $_GET['eventId']; ?></label>
       </fieldset>
 
       <fieldset class="pure-group">
@@ -48,7 +56,7 @@
         <input id="honeypot" type="text" name="honeypot" value="" />
       </fieldset>
 
-      <button class="button-success pure-button button-xlarge" onclick="setMessage()">
+      <button class="button-success pure-button button-xlarge" name="submit" onclick="setMessage()">
         <i class="fa fa-paper-plane"></i>&nbsp;Send</button>
     </div>
 
