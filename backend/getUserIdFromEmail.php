@@ -40,7 +40,7 @@
         }
 
         // Check if there was more than one row
-        if (mysqli_num_rows($result) > 1 || mysqli_num_rows($result) < 1) {
+        if (mysqli_num_rows($result) != 1) {
             echo "Error: More than one user found with the same email, please check the database.";
             displayRedirect();
             die;
@@ -49,12 +49,8 @@
         // Get results as an associative array
         $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-        foreach ($row as $key => $value) {
-            echo "key: $key, value: $value";
-        }
-
         // Return the userId
-        return $row['userId'];
+        return $row[0]['userId'];
     }
 
 ?>

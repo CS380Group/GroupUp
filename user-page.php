@@ -36,7 +36,7 @@
         include './backend/getUserInfo.php';
 
         $userAndEvents = getUserInfo();
-        $userInfo = $userAndEvents[0];
+        $userInfo = $userAndEvents[0][0];
         $joinedEvents = $userAndEvents[1];
 
         $userFirstName = $userInfo['firstName'];
@@ -47,12 +47,12 @@
         $userCity = $userInfo['cityAddress'];
         $joinedEventsString = "";
 
-        if (mysqli_num_rows($joinedEvents) == 0) {
-          $joinedEventsString = $joinedEventsString . "<li><text>No joined events were found! Try joining some events!</text></li>";
+        if (sizeof($joinedEvents) == 0) {
+          $joinedEventsString = $joinedEventsString . " - No joined events were found! Try joining some events!";
         } else {
-          for ($i = 0; $i < mysqli_num_rows($joinedEvents); $i++) {
+          for ($i = 0; $i < sizeof($joinedEvents); $i++) {
             $eventTitle = $joinedEvents[$i]['eventTitle'];
-            $joinedEventsString = $joinedEventsString . "<li>$eventTitle</li>";
+            $joinedEventsString = $joinedEventsString . "$eventTitle<br /><br />";
           }
         }
         
@@ -79,8 +79,11 @@
         "<text>$userCity</text>" . 
         "<br /><br />" . 
         "<b><u>Events Joined</u></b>" . 
-        "<ul>$joinedEventsString</ul>" .
+        // "<ul><li>fff</li></ul>" .
+        "<br /><br />" . 
+        "<text>$joinedEventsString</text>" . 
         "<br /><br />";
+        echo $userData;
       ?>
 
       <button class="open-button" name="submit" onclick="">Sign Out</button>      

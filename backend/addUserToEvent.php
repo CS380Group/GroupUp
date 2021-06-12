@@ -4,17 +4,26 @@
     // Include necessary dunctions
     include 'connectToDatabase.php';
     include 'redirectToLastPage.php';
+    include 'getUserIdFromEmail.php';
 
-    // Check if submit button was pressed
-    if (isset($_POST['submit'])) {
-        session_start();
+    // Check if join event was pressed
+    session_start();
+    if (isset($_POST['joinEvent'])) {
+
         // Connect to database
         $conn = connectToDatabase();
 
-        $userName = $_SESSION['userName'];
-        $eventId = $_POST['event'];
+        $userName = $_SESSION['username'];
+        $eventId = $_POST['eventId'];
 
         $userId = getUserId($userName);
+
+        // Check if the user has already joined this event
+        if (isUserJoined($userId, $eventId, $conn)) {
+            echo "User " . $userName . " has already joined event " . $eventId;
+            displayRedirect();
+            die;
+        }
 
         // Prepare SQL query
         $stmt = $conn->prepare("INSERT INTO userJoinEvent (userId, eventId) VALUES (?, ?)");
@@ -44,60 +53,37 @@
         echo "$userName joined eventId $eventId successfully!";
         displayRedirect();
         die;
+    } else {
+        echo "Please sign in before attempting to join an event.";
+        displayRedirect();
+        die;
     }
     
-
-    function getUserId($userName) {
-
-        // connect to database
-        $conn = connectToDatabase();
-
-        // Prepare query
-        $stmt = $conn->prepare("SELECT userId FROM user WHERE emailAddress=?");
+    function isUserJoined($userId, $eventId, $conn) {
+        $stmt = $conn->prepare("SELECT * FROM userJoinEvent WHERE userid=? AND eventId=?");
         if ($stmt == false) {
-            echo "Error: something went wrong when preparing the get userId query.";
+            echo "Error: Something went wrong when preparing the has user joined event query.";
             displayRedirect();
-            die;
-        }
-
-        // Bind query
-        $stmt->bind_param('s', $userName);
-        if ($stmt == false) {
-            echo "Error: something went wrong when binding the parameters for the get userId query";
-            displayRedirect();
-            die;
-        }
-
-        // Execute query
-        $stmt->execute();
-        if ($stmt == false) {
-            echo "Error: Something went wrong when executing the query.";
-            displayRedirect();
-            die;
-        }
-
-        // Get results
-        $result = $stmt->get_result();
-        if ($result == false || $stmt == false) {
-            echo "Error: Something went wrong when retrieving the results of the get userId query.";
-            displayRedirect();
-            die;
+            die();
         }
         
-        // Get results as an associative array
-        $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-        // Check if there was more than one row
-        if (mysqli_num_rows($result) > 1) {
-            echo "Error: More than one user found with the same email, please check the database.";
+        $stmt->bind_param('ss', $userId, $eventId);
+        if ($stmt == false) {
+            echo "Error: Something went wrong when binding params to the has user joined event query.";
             displayRedirect();
-            die;
+            die();
         }
 
-        // Return the userId
-        return $row['userId'];
+        $stmt->execute();
+        if ($stmt == false) {
+            echo "Error: Something went wrong when executing the has user joined event query.";
+            displayRedirect();
+            die();
+        }
+
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        return mysqli_num_rows($result) > 0;
     }
-
-
-
 ?>

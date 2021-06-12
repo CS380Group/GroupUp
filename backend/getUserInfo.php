@@ -17,7 +17,16 @@
 			$userId = getUserId($username);
 
 			// Prepare query
-			$stmt = $conn->prepare("SELECT * FROM user WHERE userId=?");
+			$stmt = $conn->prepare("SELECT userId, 
+							firstName,
+							lastName,
+							emailAddress,
+							streetAddress, 
+							cityAddress,
+							stateAddress,
+							phoneNumber 
+							FROM user WHERE userId=?");
+
 			if ($stmt == false) {
 				echo "Something went wrong while preparing the get user data query.";
 				displayRedirect();
@@ -52,7 +61,7 @@
 			
 			// Get list of joined events
 			// Prepare query
-			$stmt->prepare("SELECT * FROM userJoinEvent WHERE userId=?");
+			$stmt->prepare("SELECT * FROM userJoinEvent INNER JOIN event USING (eventId) WHERE userJoinEvent.userId=?");
 			if ($stmt == false) {
 				echo "Something went wrong while preparing the get joined events query.";
 				displayRedirect();
@@ -60,7 +69,7 @@
 			}
 			
 			// Bind paramters
-			$stmt->bind_param('s', $user['userId']);
+			$stmt->bind_param('s', $userId);
 			if ($stmt == false) {
 				echo "Something went wrong while binding parameters to the get joined events query.";
 				displayRedirect();
@@ -77,7 +86,8 @@
 
 			// Get results
 			$result = $stmt->get_result();
-			if ($stmt == false) {
+			
+			if ($result == false) {
 				echo "Something went wrong while getting the results of the get joined events query.";
 				displayRedirect();
 				die;
